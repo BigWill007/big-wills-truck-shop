@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Big Will's Truck Shop & Towing</title>
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Lightbox HTML -->
+    <div id="lightbox" class="lightbox">
+        <span class="close-btn">&times;</span>
+        <span class="nav-btn prev-btn">&#10094;</span>
+        <span class="nav-btn next-btn">&#10095;</span>
+        <img class="lightbox-img" src="" alt="">
+        <div class="lightbox-caption"></div>
+    </div>
+
+    <script>
+        // Lightbox functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImg = lightbox.querySelector('.lightbox-img');
+            const lightboxCaption = lightbox.querySelector('.lightbox-caption');
+            const closeBtn = lightbox.querySelector('.close-btn');
+            const prevBtn = lightbox.querySelector('.prev-btn');
+            const nextBtn = lightbox.querySelector('.next-btn');
+            
+            // Get all gallery items
+            const galleryItems = document.querySelectorAll('.gallery-item');
+            let currentIndex = 0;
+
+            // Open lightbox with clicked image
+            galleryItems.forEach((item, index) => {
+                const img = item.querySelector('img');
+                item.addEventListener('click', () => {
+                    currentIndex = index;
+                    updateLightbox();
+                    lightbox.style.display = 'block';
+                    document.body.style.overflow = 'hidden'; // Prevent scrolling when lightbox is open
+                });
+            });
+
+            // Close lightbox
+            closeBtn.addEventListener('click', () => {
+                lightbox.style.display = 'none';
+                document.body.style.overflow = 'auto'; // Re-enable scrolling
+            });
+
+            // Close when clicking outside the image
+            lightbox.addEventListener('click', (e) => {
+                if (e.target === lightbox) {
+                    lightbox.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                }
+            });
+
+            // Navigation
+            function updateLightbox() {
+                const currentImg = galleryItems[currentIndex].querySelector('img');
+                lightboxImg.src = currentImg.src;
+                lightboxCaption.textContent = currentImg.alt;
+            }
+
+            function showPrev() {
+                currentIndex = (currentIndex - 1 + galleryItems.length) % galleryItems.length;
+                updateLightbox();
+            }
+
+            function showNext() {
+                currentIndex = (currentIndex + 1) % galleryItems.length;
+                updateLightbox();
+            }
+
+            prevBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                showPrev();
+            });
+
+            nextBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                showNext();
+            });
+
+            // Keyboard navigation
+            document.addEventListener('keydown', (e) => {
+                if (lightbox.style.display === 'block') {
+                    e.preventDefault();
+                    if (e.key === 'Escape') {
+                        lightbox.style.display = 'none';
+                        document.body.style.overflow = 'auto';
+                    } else if (e.key === 'ArrowLeft') {
+                        showPrev();
+                    } else if (e.key === 'ArrowRight') {
+                        showNext();
+                    }
+                }
+            });
+        });
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <h1>Big Will's <span>Towing and Repair</span></h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="#gallery">Gallery</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section id="home" class="hero">
+        <div class="container">
+            <h1>24/7 Roadside Service & Towing</h1>
+            <p>Full Service Towing, Recovery, and Truck/Trailer Repair</p>
+            <a href="tel:+13369679191" class="btn">Call Now: (336) 967-9191</a>
+        </div>
+    </section>
+
+    <section id="services" class="services">
+        <div class="container">
+            <h2>Our Services</h2>
+            <div class="services-grid">
+                <a href="pages/services/towing-recovery.html" class="service-card">
+                    <i class="fas fa-truck-pickup"></i>
+                    <h3>Towing & Recovery</h3>
+                    <p>24/7 emergency towing and recovery for all makes and models</p>
+                    <span class="learn-more">Learn more →</span>
+                </a>
+                <a href="pages/services/truck-repair.html" class="service-card">
+                    <i class="fas fa-tools"></i>
+                    <h3>Truck Repair</h3>
+                    <p>Professional repair services for all truck makes and models</p>
+                    <span class="learn-more">Learn more →</span>
+                </a>
+                <a href="pages/services/mobile-truck-repair.html" class="service-card">
+                    <i class="fas fa-tools"></i>
+                    <h3>24/7 Mobile Truck Repair</h3>
+                    <p>Emergency truck repair services at your location, day or night</p>
+                    <span class="learn-more">Learn more →</span>
+                </a>
+                <a href="pages/services/fleet-maintenance.html" class="service-card">
+                    <i class="fas fa-truck-moving"></i>
+                    <h3>Fleet Maintenance</h3>
+                    <p>Comprehensive maintenance programs to keep your fleet running smoothly</p>
+                    <span class="learn-more">Learn more →</span>
+                </a>
+                <a href="pages/services/heavy-haul.html" class="service-card">
+                    <i class="fas fa-truck-monster"></i>
+                    <h3>Heavy Haul</h3>
+                    <p>Specialized transportation for oversized and overweight loads</p>
+                    <span class="learn-more">Learn more →</span>
+                </a>
+                <a href="pages/services/hazmat-cleanup.html" class="service-card">
+                    <i class="fas fa-biohazard"></i>
+                    <h3>Hazmat Cleanup</h3>
+                    <p>Professional hazardous material cleanup and decontamination services</p>
+                    <span class="learn-more">Learn more →</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="about">
+        <div class="container">
+            <div class="about-content">
+                <h2>About Big Will's</h2>
+                <p>With over 60 years of combined experience, Big Will's Truck Shop has been providing top-quality towing and repair services since 2000. As an independently owned truck repair shop, we service all makes and models. Our team of certified technicians is dedicated to minimizing your downtime and getting you back on the road safely and efficiently.</p>
+                <div class="features">
+                    <div class="feature">
+                        <i class="fas fa-check-circle"></i>
+                        <span>24/7 Emergency Service</span>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Fully Licensed & Insured</span>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Competitive Pricing</span>
+                    </div>
+                </div>
+            </div>
+            <div class="about-image">
+                <img src="https://i.ibb.co/Z6mnXKTN/IMG-20240515-125943.jpg" alt="Big Will's Truck Shop team" loading="lazy">
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2>Contact Us</h2>
+            <div class="contact-container">
+                <div class="contact-info">
+                    <h3>Get in Touch</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> 1386 South Park Drive, Kernersville, NC 27284</p>
+                    <p><i class="fas fa-phone"></i> <a href="tel:+13369679191">(336) 967-9191</a></p>
+                    <p><i class="fas fa-envelope"></i> <a href="mailto:service@bigwillstruckshop.com">service@bigwillstruckshop.com</a></p>
+                    <div class="hours">
+                        <h4>Business Hours</h4>
+                        <p>Monday - Friday: 7:30 AM - 6:00 PM</p>
+                        <p>Saturday: 10:00 AM - 2:00 PM</p>
+                        <p>Sunday: Closed</p>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <form>
+                        <input type="text" placeholder="Your Name" required>
+                        <input type="email" placeholder="Your Email" required>
+                        <input type="tel" placeholder="Your Phone">
+                        <textarea placeholder="Your Message" required></textarea>
+                        <button type="submit" class="btn">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="gallery" class="gallery">
+        <div class="container">
+            <h2>Our Work Gallery</h2>
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <img src="https://i.ibb.co/Mkg3Crzy/image.jpg" alt="Truck repair service" loading="lazy">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://i.ibb.co/nsFb2mLW/image.jpg" alt="Professional truck maintenance" loading="lazy">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://i.ibb.co/gZB7vtdb/image.jpg" alt="Truck inspection" loading="lazy">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://i.ibb.co/jZyzgnXG/image.jpg" alt="Truck engine service" loading="lazy">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://i.ibb.co/ycTmKLKw/image.jpg" alt="Truck maintenance" loading="lazy">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://i.ibb.co/1t4hknwN/image.jpg" alt="Towing service" loading="lazy">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://i.ibb.co/7x1wpgX5/image.jpg" alt="Truck alignment" loading="lazy">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://i.ibb.co/JfgtLCw/image.jpg" alt="Professional truck service" loading="lazy">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://i.ibb.co/jcFKFL8/image.jpg" alt="Truck repair and maintenance" loading="lazy">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://i.ibb.co/WvvQvJ8y/image.jpg" alt="Truck engine diagnostics" loading="lazy">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://i.ibb.co/m5W4Gswc/image.jpg" alt="Truck brake service" loading="lazy">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://i.ibb.co/gMnmLfyN/image.jpg" alt="Truck suspension work" loading="lazy">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://i.ibb.co/Pzxc4tJT/image.jpg" alt="Truck transmission service" loading="lazy">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://i.ibb.co/0pZxSqW6/image.jpg" alt="Truck electrical work" loading="lazy">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://i.ibb.co/7t44HnCy/image.jpg" alt="Truck exhaust system service" loading="lazy">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Big Will's Towing & Repair</h3>
+                    <p>Your trusted partner for all truck repair and towing needs since 2000.</p>
+                    <p>Insurance approved shop serving the Triad area.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#services">Services</a></li>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Connect With Us</h3>
+                    <div class="social-links">
+                        <a href="https://www.facebook.com/BIGWILLSTRUCKSHOP" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="https://www.instagram.com/bigwillstruckshop/" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Big Will's Truck Shop & Towing. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
